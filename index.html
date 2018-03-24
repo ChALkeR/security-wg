@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="Node.js Security WG vulnerability viewer">
+    <link rel="stylesheet" href="https://unpkg.com/normalize.css/normalize.css">
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="https://unpkg.com/unquire@1"></script>
+    <title>Node.js Security WG vulnerability viewer</title>
+  </head>
+  <body data-require-main="./main.js">
+    <header id="header">
+      <div id="title">NSWG-ECO-1</div>
+      <div id="previous">🠬</div>
+      <div id="next">🠮</div>
+    </header>
+    <main id="main">
+      <section id="introduction">
+        <p>Try <a href="#NSWG-ECO-1">NSWG-ECO-1</a> or <a href="#NSWG-CORE-1">NSWG-CORE-1</a>.</p>
+      </section>
+      <section id="core">
+      </section>
+      <section id="eco">
+        <h2 id="eco-title"></h2>
+        <h3>Module</h3>
+        <p><a id="eco-module" href="#"></a></p>
+        <h3>Overview</h3>
+        <div id="eco-overview"></div>
+        <h3>Remediation</h3>
+        <div id="eco-recommendation"></div>
+        <h3>References</h3>
+        <div id="eco-references"></div>
+      </section>
+    </main>
+    <div id="loading"></div>
+  </body>
+</html>

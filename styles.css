@@ -1,0 +1,89 @@
+body {
+  font-family: 'PT Sans', 'Liberation Sans', 'Calibri', Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+a {
+  color: #43853d;
+  display: inline-block;
+  padding: 1px 3px;
+  border-radius: 2px;
+  text-decoration: none;
+}
+a:hover {
+  background: #43853d;
+  color: #fff;
+}
+p {
+  margin: 0;
+  padding-bottom: 10px;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+#loading {
+  position: fixed;
+  left: 0; right: 0; top: 0; bottom: 0;
+  background: #026e00;
+  color: #fff;
+}
+#loading::before {
+  display: block;
+  content: '⭮';
+  font-size: 40px;
+  width: 40px;
+  height: 40px;
+  line-height: 1;
+  margin-left: calc(50vw - 20px);
+  margin-top: calc(50vh - 20px);
+  text-align: center;
+  animation: rotation 1s infinite linear;
+}
+
+#header {
+  color: #fff;
+  text-align: center;
+  height: 80px;
+  width: 100%;
+  line-height: 80px;
+  background: #026e00;
+  position: relative;
+  font-size: 40px;
+}
+
+#previous, #next {
+  position: absolute;
+  height: 80px;
+  padding: 0px 20px;
+  cursor: pointer;
+}
+
+#previous:hover, #next:hover {
+  background: #026000;
+}
+
+#previous {
+  left: 0; top: 0;
+}
+
+#next {
+  right: 0; top: 0;
+}
+
+#main {
+  padding: 10px;
+}
+
+#introduction {
+  text-align: center;
+  font-size: 30px;
+  margin-top: calc(50vh - 100px);
+}
