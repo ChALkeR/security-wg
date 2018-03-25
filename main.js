@@ -237,14 +237,14 @@ function bindHandlers() {
         break;
       case 'ArrowRight':
         if (shown === '') {
-          show('NSWG-CORE-1').catch(e => { throw e; });
+          show('NSWG-ECO-1').catch(e => { throw e; });
         } else {
           showNext(1).catch(e => { throw e; });
         }
         break;
       case 'ArrowLeft':
         if (shown === '') {
-          show('NSWG-ECO-1').catch(e => { throw e; });
+          show('NSWG-CORE-1').catch(e => { throw e; });
         } else {
           showNext(-1).catch(e => { throw e; });
         }
