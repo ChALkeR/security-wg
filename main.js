@@ -13,6 +13,11 @@ function sleep(ms) {
   return new Promise(resolve => { setTimeout(resolve, ms); });
 }
 
+async function markyWait() {
+  while (typeof markyMarkdown === 'undefined')
+    await sleep(100);
+}
+
 function parseName(name) {
   if (!/^[A-Z\-]+-[1-9][0-9]*$/.test(name)) throw new Error('Invalid vuln id');
   const id = parseInt(name.split('-').pop(), 10);
@@ -206,43 +211,47 @@ async function showHash() {
 }
 
 async function main() {
+  await markyWait();
+  bindHandlers();
   await showHash();
   await Promise.all(['NSWG-ECO-1', 'NSWG-CORE-1'].map(preload));
 }
 
-eid('next').addEventListener('mousedown', () => {
-  showNext(1).catch(e => { throw e; });
-});
+function bindHandlers() {
+  eid('next').addEventListener('mousedown', () => {
+    showNext(1).catch(e => { throw e; });
+  });
 
-eid('previous').addEventListener('mousedown', () => {
-  showNext(-1).catch(e => { throw e; });
-});
+  eid('previous').addEventListener('mousedown', () => {
+    showNext(-1).catch(e => { throw e; });
+  });
 
-window.addEventListener('hashchange', () => {
-  showHash().catch(e => { throw e; });
-}, false);
+  window.addEventListener('hashchange', () => {
+    showHash().catch(e => { throw e; });
+  }, false);
 
-document.addEventListener('keydown', event => {
-  switch (event.key) {
-    case 'ArrowUp':
-      show('').catch(e => { throw e; });
-      break;
-    case 'ArrowRight':
-      if (shown === '') {
-        show('NSWG-CORE-1').catch(e => { throw e; });
-      } else {
-        showNext(1).catch(e => { throw e; });
-      }
-      break;
-    case 'ArrowLeft':
-      if (shown === '') {
-        show('NSWG-ECO-1').catch(e => { throw e; });
-      } else {
-        showNext(-1).catch(e => { throw e; });
-      }
-      break;
-  }
-}, false);
+  document.addEventListener('keydown', event => {
+    switch (event.key) {
+      case 'ArrowUp':
+        show('').catch(e => { throw e; });
+        break;
+      case 'ArrowRight':
+        if (shown === '') {
+          show('NSWG-CORE-1').catch(e => { throw e; });
+        } else {
+          showNext(1).catch(e => { throw e; });
+        }
+        break;
+      case 'ArrowLeft':
+        if (shown === '') {
+          show('NSWG-ECO-1').catch(e => { throw e; });
+        } else {
+          showNext(-1).catch(e => { throw e; });
+        }
+        break;
+    }
+  }, false);
+}
 
 main().catch(e => { throw e; });
 
