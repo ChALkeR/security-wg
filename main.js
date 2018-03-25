@@ -70,7 +70,7 @@ async function showNext(step = 1) {
 
 async function getNext(name, step = 1) {
   const { type, id } = parseName(name);
-  for (let i = 1; i <= 10; i++) {
+  for (let i = 1; i <= 30; i++) {
     const n = id + i * step;
     if (n < 1) return null;
     const vuln = await get(buildName(type, n));
