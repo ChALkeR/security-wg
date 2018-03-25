@@ -59,6 +59,12 @@ async function get(name) {
   for (const key of ['publish_date']) {
     if (vuln[key]) vuln[key] = new Date(vuln[key]);
   }
+  for (const key of ['overview', 'recommendation', 'references']) {
+    vuln[`${key}Html`] = '';
+    if (vuln[key]) vuln[`${key}Html`] = markyMarkdown(vuln[key], {
+      enableHeadingLinkIcons: false
+    });
+  }
   vulns.set(name, vuln);
   if (vuln.module_name) {
     fetch(`${downloadsApi}/last-month/${vuln.module_name}`)
@@ -107,6 +113,14 @@ async function preload(name) {
   }
 }
 
+function setHtml(id, vuln, key) {
+  if (vuln[`${key}Html`]) {
+    eid(id).innerHTML = vuln[`${key}Html`];
+  } else {
+    eid(id).innerText = vuln[key] || '';
+  }
+}
+
 function display(vuln) {
   if (!vuln) return displayIntroduction();
   document.title = `${vuln.name} — ${dtitle}`;
@@ -124,7 +138,6 @@ function display(vuln) {
 
 function displayNpm(vuln) {
   eid('eco-title').innerText = vuln.title;
-  eid('eco-overview').innerText = vuln.overview || '';
   eid('eco-module-link').innerText = vuln.module_name;
   eid('eco-module-link').href = `https://www.npmjs.com/package/${vuln.module_name}`;
   eid('eco-cvss').innerText = vuln.cvss_vector;
@@ -134,16 +147,16 @@ function displayNpm(vuln) {
   eid('eco-vulnerable').innerText = vuln.vulnerable_versions || '?';
   eid('eco-patched').innerText = vuln.patched_versions || '?';
   eid('eco-cves').innerText = vuln.cves.join(', ') || 'none';
-  eid('eco-recommendation').innerText = vuln.recommendation || '';
-  eid('eco-references').innerText = vuln.references || '';
   eid('eco-downloads').innerText = vuln.downloads || '?';
+  setHtml('eco-overview', vuln, 'overview');
+  setHtml('eco-recommendation', vuln, 'recommendation');
+  setHtml('eco-references', vuln, 'references');
   eid('core').style.display = 'none';
   eid('eco').style.display = 'block';
 }
 
 function displayCore(vuln) {
   eid('core-title').innerText = vuln.description || '';
-  eid('core-overview').innerText = vuln.overview || '';
   eid('core-cvss').innerText = vuln.cvss || '';
   eid('core-score').innerText = vuln.cvss_score || '';
   eid('core-author').innerText = vuln.author || '';
@@ -151,6 +164,7 @@ function displayCore(vuln) {
   eid('core-patched').innerText = vuln.patched || '?';
   eid('core-cves').innerText = vuln.cve.join(', ') || '';
   eid('core-references').innerText = vuln.ref || '';
+  setHtml('core-overview', vuln, 'overview');
   eid('eco').style.display = 'none';
   eid('core').style.display = 'block';
 }
