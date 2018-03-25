@@ -68,9 +68,13 @@ async function get(name) {
   }
   for (const key of ['overview', 'recommendation', 'references', 'ref']) {
     vuln[`${key}Html`] = '';
-    if (vuln[key]) vuln[`${key}Html`] = markyMarkdown(vuln[key], {
-      enableHeadingLinkIcons: false
-    });
+    try {
+      if (vuln[key]) vuln[`${key}Html`] = markyMarkdown(vuln[key], {
+        enableHeadingLinkIcons: false
+      });
+    } catch (e) {
+      console.log(name, e);
+    }
   }
   vulns.set(name, vuln);
   if (vuln.module_name) {
