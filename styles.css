@@ -38,6 +38,8 @@ h2 {
   columns: 3;
 }
 
+#core-author::before, #core-patched::before, #core-vulnerable::before,
+#core-score::before, #core-cvss::before, #core-cves::before,
 #eco-module::before, #eco-publish::before, #eco-vulnerable::before,
 #eco-patched::before, #eco-downloads::before, #eco-cvss::before,
 #eco-score::before, #eco-cves::before, #eco-author::before {
@@ -47,15 +49,22 @@ h2 {
   font-weight: bold;
 }
 
+#eco-vulnerable::before, #core-vulnerable::before { content: 'Vulnerable versions:'; }
+#eco-patched::before, #core-patched::before { content: 'Patched versions:'; }
+#eco-cvss::before, #core-cvss::before { content: 'CVSS Vector:'; }
+#eco-score::before, #core-score::before { content: 'CVSS Score:'; }
+#eco-cves::before, #core-cves::before { content: 'CVEs:'; }
+#eco-author::before, #core-author::before { content: 'Author:'; }
 #eco-module::before { content: 'Module:'; }
 #eco-publish::before { content: 'Publish date:'; }
-#eco-vulnerable::before { content: 'Vulnerable versions:'; }
-#eco-patched::before { content: 'Patched versions:'; }
-#eco-cvss::before { content: 'CVSS Vector:'; }
-#eco-score::before { content: 'CVSS Score:'; }
-#eco-cves::before { content: 'CVEs:'; }
-#eco-author::before { content: 'Author:'; }
 #eco-downloads::before { content: 'Downloads/month:'; }
+
+#core-author:empty, #core-cves:empty {
+  visibility: hidden;
+}
+#core-cvss:empty, #core-score:empty {
+  display: none;
+}
 
 #loading {
   position: fixed;

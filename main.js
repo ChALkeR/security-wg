@@ -141,6 +141,17 @@ function displayNpm(vuln) {
 }
 
 function displayCore(vuln) {
+  eid('core-title').innerText = vuln.description || '';
+  eid('core-overview').innerText = vuln.overview || '';
+  eid('core-cvss').innerText = vuln.cvss || '';
+  eid('core-score').innerText = vuln.cvss_score || '';
+  eid('core-author').innerText = vuln.author || '';
+  eid('core-vulnerable').innerText = vuln.vulnerable || '?';
+  eid('core-patched').innerText = vuln.patched || '?';
+  eid('core-cves').innerText = vuln.cve.join(', ') || '';
+  eid('core-references').innerText = vuln.ref || '';
+  eid('eco').style.display = 'none';
+  eid('core').style.display = 'block';
 }
 
 function displayIntroduction() {
