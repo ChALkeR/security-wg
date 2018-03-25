@@ -228,10 +228,18 @@ document.addEventListener('keydown', event => {
       show('').catch(e => { throw e; });
       break;
     case 'ArrowRight':
-      showNext(1).catch(e => { throw e; });
+      if (shown === '') {
+        show('NSWG-CORE-1').catch(e => { throw e; });
+      } else {
+        showNext(1).catch(e => { throw e; });
+      }
       break;
     case 'ArrowLeft':
-      showNext(-1).catch(e => { throw e; });
+      if (shown === '') {
+        show('NSWG-ECO-1').catch(e => { throw e; });
+      } else {
+        showNext(-1).catch(e => { throw e; });
+      }
       break;
   }
 }, false);
