@@ -182,4 +182,15 @@ window.addEventListener('hashchange', () => {
   showHash().catch(e => { throw e; });
 }, false);
 
+document.addEventListener('keydown', event => {
+  switch (event.key) {
+    case 'ArrowRight':
+      showNext(1).catch(e => { throw e; });
+      break;
+    case 'ArrowLeft':
+      showNext(-1).catch(e => { throw e; });
+      break;
+  }
+}, false);
+
 main().catch(e => { throw e; });
