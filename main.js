@@ -1,4 +1,5 @@
 const repo = `https://raw.githubusercontent.com/nodejs/security-wg/master/vuln`;
+const downloadsApi = `https://api.npmjs.org/downloads/point`;
 const dtitle = document.title;
 let shown;
 
@@ -58,6 +59,16 @@ async function get(name) {
     if (vuln[key]) vuln[key] = new Date(vuln[key]);
   }
   vulns.set(name, vuln);
+  if (vuln.module_name) {
+    fetch(`${downloadsApi}/last-month/${vuln.module_name}`)
+      .then(res => res.json())
+      .then(info => {
+        if (!info.downloads || info.package !== vuln.module_name) return;
+        vuln.downloads = info.downloads;
+        if (name === shown) eid('eco-downloads').innerText = vuln.downloads;
+      })
+      .catch(e => console.error(e));
+  }
   return vuln;
 }
 
@@ -124,6 +135,7 @@ function displayNpm(vuln) {
   eid('eco-cves').innerText = vuln.cves.join(', ') || 'none';
   eid('eco-recommendation').innerText = vuln.recommendation || '';
   eid('eco-references').innerText = vuln.references || '';
+  eid('eco-downloads').innerText = vuln.downloads || '?';
   eid('core').style.display = 'none';
   eid('eco').style.display = 'block';
 }

@@ -38,8 +38,9 @@ h2 {
   columns: 3;
 }
 
-#eco-module::before, #eco-publish::before, #eco-vulnerable::before, #eco-patched::before,
-#eco-cvss::before, #eco-score::before, #eco-cves::before, #eco-author::before {
+#eco-module::before, #eco-publish::before, #eco-vulnerable::before,
+#eco-patched::before, #eco-downloads::before, #eco-cvss::before,
+#eco-score::before, #eco-cves::before, #eco-author::before {
   display: inline-block;
   color: #026e00;
   padding-right: 5px;
@@ -54,6 +55,7 @@ h2 {
 #eco-score::before { content: 'CVSS Score:'; }
 #eco-cves::before { content: 'CVEs:'; }
 #eco-author::before { content: 'Author:'; }
+#eco-downloads::before { content: 'Downloads/month:'; }
 
 #loading {
   position: fixed;
