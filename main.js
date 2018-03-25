@@ -70,6 +70,7 @@ async function get(name) {
     vuln[`${key}Html`] = '';
     try {
       if (vuln[key]) vuln[`${key}Html`] = markyMarkdown(vuln[key], {
+        highlightSyntax: false,
         enableHeadingLinkIcons: false
       });
     } catch (e) {
