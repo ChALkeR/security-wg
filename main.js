@@ -64,7 +64,7 @@ async function get(name) {
 async function showNext(step = 1) {
   if (!shown) return;
   const vuln = await getNext(shown, step);
-  if (!vuln) return show('');
+  if (!vuln) return;
   return show(vuln.name);
 }
 
