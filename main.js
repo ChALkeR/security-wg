@@ -66,7 +66,7 @@ async function get(name) {
   for (const key of ['publish_date']) {
     if (vuln[key]) vuln[key] = new Date(vuln[key]);
   }
-  for (const key of ['overview', 'recommendation', 'references']) {
+  for (const key of ['overview', 'recommendation', 'references', 'ref']) {
     vuln[`${key}Html`] = '';
     if (vuln[key]) vuln[`${key}Html`] = markyMarkdown(vuln[key], {
       enableHeadingLinkIcons: false
@@ -170,8 +170,8 @@ function displayCore(vuln) {
   eid('core-vulnerable').innerText = vuln.vulnerable || '?';
   eid('core-patched').innerText = vuln.patched || '?';
   eid('core-cves').innerText = vuln.cve.join(', ') || '';
-  eid('core-references').innerText = vuln.ref || '';
   setHtml('core-overview', vuln, 'overview');
+  setHtml('core-references', vuln, 'ref');
   eid('eco').style.display = 'none';
   eid('core').style.display = 'block';
 }
