@@ -11,9 +11,10 @@ a {
   border-radius: 2px;
   text-decoration: none;
 }
-a:hover {
+a:hover, a:focus {
   background: #43853d;
   color: #fff;
+  outline: 0px none;
 }
 p {
   margin: 0 0 10px 0;
