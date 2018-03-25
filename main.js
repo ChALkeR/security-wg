@@ -44,6 +44,7 @@ async function get(name) {
     return get(name);
   }
   const vuln = await res.json();
+  if (!vuln.id) vuln.id = id;
   if (vuln.id > maxIds[type]) {
     maxIds[type] = vuln.id;
     if (shown) {
