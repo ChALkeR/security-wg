@@ -54,6 +54,9 @@ async function get(name) {
   }
   vuln.type = type;
   vuln.name = name;
+  for (const key of ['publish_date']) {
+    if (vuln[key]) vuln[key] = new Date(vuln[key]);
+  }
   vulns.set(name, vuln);
   return vuln;
 }
@@ -68,7 +71,9 @@ async function showNext(step = 1) {
 async function getNext(name, step = 1) {
   const { type, id } = parseName(name);
   for (let i = 1; i <= 10; i++) {
-    const vuln = await get(buildName(type, id + i * step));
+    const n = id + i * step;
+    if (n < 1) return null;
+    const vuln = await get(buildName(type, n));
     if (vuln) return vuln;
   }
   return null;
@@ -76,10 +81,17 @@ async function getNext(name, step = 1) {
 
 async function preload(name) {
   await get(name);
+  let nameNext = name;
   for (let i = 0; i < 2; i++) {
-    const vuln = await getNext(name);
-    if (!vuln) return;
-    name = vuln.name;
+    const vuln = await getNext(nameNext);
+    if (!vuln) break;
+    nameNext = vuln.name;
+  }
+  let namePrev = name;
+  for (let i = 0; i < 2; i++) {
+    const vuln = await getNext(namePrev, -1);
+    if (!vuln) break;
+    namePrev = vuln.name;
   }
 }
 
@@ -101,8 +113,15 @@ function display(vuln) {
 function displayNpm(vuln) {
   eid('eco-title').innerText = vuln.title;
   eid('eco-overview').innerText = vuln.overview || '';
-  eid('eco-module').innerText = vuln.module_name;
-  eid('eco-module').href = `https://www.npmjs.com/package/${vuln.module_name}`;
+  eid('eco-module-link').innerText = vuln.module_name;
+  eid('eco-module-link').href = `https://www.npmjs.com/package/${vuln.module_name}`;
+  eid('eco-cvss').innerText = vuln.cvss_vector;
+  eid('eco-score').innerText = vuln.cvss_score;
+  eid('eco-author').innerText = vuln.author;
+  eid('eco-publish').innerText = vuln.publish_date.toISOString().slice(0, 10);
+  eid('eco-vulnerable').innerText = vuln.vulnerable_versions || '?';
+  eid('eco-patched').innerText = vuln.patched_versions || '?';
+  eid('eco-cves').innerText = vuln.cves.join(', ') || 'none';
   eid('eco-recommendation').innerText = vuln.recommendation || '';
   eid('eco-references').innerText = vuln.references || '';
   eid('core').style.display = 'none';

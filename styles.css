@@ -3,7 +3,6 @@ body {
   font-size: 16px;
   line-height: 1.5;
 }
-
 a {
   color: #43853d;
   display: inline-block;
@@ -16,8 +15,13 @@ a:hover {
   color: #fff;
 }
 p {
-  margin: 0;
-  padding-bottom: 10px;
+  margin: 0 0 10px 0;
+}
+h1 {
+  margin: 10px 0;
+}
+h2 {
+  margin: 15px 0;
 }
 
 @keyframes rotation {
@@ -28,6 +32,23 @@ p {
     transform: rotate(359deg);
   }
 }
+
+#eco-module::before, #eco-publish::before, #eco-vulnerable::before, #eco-patched::before,
+#eco-cvss::before, #eco-score::before, #eco-cves::before, #eco-author::before {
+  display: inline-block;
+  color: #026e00;
+  padding-right: 5px;
+  font-weight: bold;
+}
+
+#eco-module::before { content: 'Module:'; }
+#eco-publish::before { content: 'Publish date:'; }
+#eco-vulnerable::before { content: 'Vulnerable versions:'; }
+#eco-patched::before { content: 'Patched versions:'; }
+#eco-cvss::before { content: 'CVSS Vector:'; }
+#eco-score::before { content: 'CVSS Score:'; }
+#eco-cves::before { content: 'CVEs:'; }
+#eco-author::before { content: 'Author:'; }
 
 #loading {
   position: fixed;
@@ -80,6 +101,8 @@ p {
 
 #main {
   padding: 10px;
+  overflow-y: auto;
+  height: calc(100vh - 100px);
 }
 
 #introduction {
