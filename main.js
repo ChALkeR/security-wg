@@ -13,9 +13,15 @@ function sleep(ms) {
   return new Promise(resolve => { setTimeout(resolve, ms); });
 }
 
-async function markyWait() {
-  while (typeof markyMarkdown === 'undefined')
+async function depsWait() {
+  while (typeof marked === 'undefined' || typeof DOMPurify === 'undefined')
     await sleep(100);
+}
+
+function markdown2html(text) {
+  text = text.replace(/^(#+)/gm, '$1 ');
+  const html = marked(text);
+  return DOMPurify.sanitize(html);
 }
 
 function parseName(name) {
@@ -69,10 +75,7 @@ async function get(name) {
   for (const key of ['overview', 'recommendation', 'references', 'ref']) {
     vuln[`${key}Html`] = '';
     try {
-      if (vuln[key]) vuln[`${key}Html`] = markyMarkdown(vuln[key], {
-        highlightSyntax: false,
-        enableHeadingLinkIcons: false
-      });
+      if (vuln[key]) vuln[`${key}Html`] = markdown2html(vuln[key]);
     } catch (e) {
       console.log(name, e);
     }
@@ -216,7 +219,7 @@ async function showHash() {
 }
 
 async function main() {
-  await markyWait();
+  await depsWait();
   bindHandlers();
   await showHash();
   await Promise.all(['NSWG-ECO-1', 'NSWG-CORE-1'].map(preload));
