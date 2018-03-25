@@ -37,6 +37,7 @@ h2 {
 
 .info {
   columns: 3;
+  width: calc(100vw - 35px);
 }
 
 #core-author::before, #core-patched::before, #core-vulnerable::before,
