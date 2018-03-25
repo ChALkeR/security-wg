@@ -7,6 +7,7 @@ a {
   color: #43853d;
   display: inline-block;
   padding: 1px 3px;
+  margin: -1px -3px;
   border-radius: 2px;
   text-decoration: none;
 }
@@ -31,6 +32,10 @@ h2 {
   to {
     transform: rotate(359deg);
   }
+}
+
+.info {
+  columns: 3;
 }
 
 #eco-module::before, #eco-publish::before, #eco-vulnerable::before, #eco-patched::before,
@@ -109,4 +114,16 @@ h2 {
   text-align: center;
   font-size: 30px;
   margin-top: calc(50vh - 100px);
+}
+
+@media (max-width: 1500px) {
+  .info {
+    columns: 2;
+  }
+}
+
+@media (max-width: 1000px) {
+  .info {
+    columns: 1;
+  }
 }
