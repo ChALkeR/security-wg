@@ -1,3 +1,5 @@
+(function () {
+
 const repo = `https://raw.githubusercontent.com/nodejs/security-wg/master/vuln`;
 const downloadsApi = `https://api.npmjs.org/downloads/point`;
 const dtitle = document.title;
@@ -235,3 +237,5 @@ document.addEventListener('keydown', event => {
 }, false);
 
 main().catch(e => { throw e; });
+
+})();
