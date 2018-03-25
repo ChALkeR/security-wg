@@ -208,6 +208,9 @@ window.addEventListener('hashchange', () => {
 
 document.addEventListener('keydown', event => {
   switch (event.key) {
+    case 'ArrowUp':
+      show('').catch(e => { throw e; });
+      break;
     case 'ArrowRight':
       showNext(1).catch(e => { throw e; });
       break;
