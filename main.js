@@ -170,11 +170,11 @@ async function main() {
   await Promise.all(['NSWG-ECO-1', 'NSWG-CORE-1'].map(preload));
 }
 
-eid('next').addEventListener('click', () => {
+eid('next').addEventListener('mousedown', () => {
   showNext(1).catch(e => { throw e; });
 });
 
-eid('previous').addEventListener('click', () => {
+eid('previous').addEventListener('mousedown', () => {
   showNext(-1).catch(e => { throw e; });
 });
 
