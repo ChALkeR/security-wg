@@ -20,6 +20,7 @@ async function depsWait() {
 
 function markdown2html(text) {
   text = text.replace(/^(#+)/gm, '$1 ');
+  marked.setOptions({ sanitize: true });
   const html = marked(text);
   return DOMPurify.sanitize(html);
 }
